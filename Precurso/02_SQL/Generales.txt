@@ -1,0 +1,49 @@
+--Cómo crear una tabla en SQL:
+--    CREATE TABLE bootcamp.clase (dni VARCHAR(9), nombre VARCHAR(30), apellido VARCHAR(60), edad INT, sexo BOOLEAN);
+--    CREATE TABLE bootcamp.puesto (dni VARCHAR(9), puesto VARCHAR (50), sueldo INT(10));
+
+--Como incluir registros en tabla:
+--    1 fila de datos: INSERT INTO bootcamp.clase VALUES ("78584477D", "María Reyes", "Rocío Pérez", 31, 0);
+--    Más de una línea de datos: INSERT INTO bootcamp.clase VALUES ("4422557A", "Alfonso", "del Pozo Ruiz", 29, 0), ("02733389", "Oda", "Sala Pascual", 28, 1), ("25416365P", "Rafael", "Monteagudo Tórtola", 48, 0), ("51495722X", "Micaela", "Bedón Proaño", 26, 1), ("44062319T", "Esteban Manuel", "Sánchez García", 25, 0);
+--    Poblar la tabla puesto: INSERT INTO bootcamp.puesto VALUES ("78584477D", "Editora", 12000), ("4422557A", "Marketing Developer", 30000), ("02733389", "Camarera", 200000), ("25416365P", "Ingeniero Industrial", 60000), ("51495722X", "Becaria Analista", 16000), ("44062319T", "Profesor", 50000)
+
+
+--Relaciones entre tablas:
+--     INNER JOIN : Devuélveme solo la información que se repite en ambas tablas.
+--     LEFT/RIGHT JOIN: Devuélveme la información conjunta de ambas tablas y, además, la información de la tabla izquierda/derecha
+--     FULL OUTHER JOIN: Devuélveme todos los valores de las dos tablas.
+
+--     Ejemplo de INNER JOIN: SELECT clase.nombre, clase.dni, clase.sexo, puesto.puesto, puesto.sueldo from bootcamp.clase AS clase INNER JOIN bootcamp.puesto AS puesto ON clase.dni = puesto.dni;
+--     Ejemplo SELECT clase.nombre, clase.dni, clase.sexo, puesto.puesto, puesto.sueldo AVG(puesto.sueldo) AS media FROM bootcamp.clase AS clase INNER JOIN bootcamp.puesto AS puesto ON  clase.dni = puesto.dni GROUP BY sexo ORDER BY media ASC;
+--          FULL OUTHER JOIN: cambiar clausula INNER JOIN por FULL OUTHER JOIN
+--          LEFT/RIGHT JOIN: cambiar clausula INNER JOIN por LEFT/RIGHT JOIN
+--     Ejemplo de LEFT JOIN (el programa no soporta el Join derecho ni el full outher): SELECT clase.sexo, puesto.sueldo, clase.name FROM bootcamp.puesto AS puesto LEFT JOIN bootcamp.clase AS clase ON clase.dni = puesto.dni;
+
+
+--Cómo consultar datos en una tabla:
+--     Todos los campos de una tabla: SELECT * FROM bootcamp.clase;
+--     Campos específicos de una tabla: SELECT nombre, edad FROM bootcamp.clase;
+--     Admite crear funciones con las tablas: SELECT COUNT(*) FROM bootcamp.clase;
+--     Para depurar los duplicados que pudise tener la tabla: SELECT DISTINCT(COUNT(*)) FROM bootcamp.clase; o SELECT COUNT(DISTINCT(nombre)) FROM bootcamp.clase
+
+--Actualización de registros en tabla:
+--     Actualizar campos específicos: UPDATE bootcamp.clase SET edad = 31 WHERE dni = "78584477D";
+--     Actualizar campos específicos: UPDATE bootcamp.clase SET sexo = 1 WHERE dni = "78584477D";
+
+-- Filtro de datos:
+--     hombres en la tabla de clase: SELECT * FROM bootcamp.clase WHERE sexo = 0;
+--     personas menores de 27: SELECT * FROM bootcamp.clase WHERE edad < 27;
+--     nombres que comiencen por R: SELECT * FROM bootcamp.clase WHERE nombre LIKE "R%";
+--     nombres que terminen por a: SELECT * FROM bootcamp.clase WHERE nombre LIKE "%a";
+--     para que devuelva el nombre todo en mayúscula: SELECT UPPER(nombre) FROM bootcamp.clase;
+--     hacer una media con los datos de una tabla. Para que el valor sea en estadística más robusto sería utilizar una mediana: SELECT AVG(age) FROM bootcamp.clase;
+--     hacer una media excluyendo valores: SELECT AVG(edad) FROM bootcamp.clase WHERE edad < 40; o SELECT AVG(edad) FROM bootcamp.clase WHERE edad != 48 (!= "no es");
+--     ordenar valores en valores descendentes por edad: SELECT * FROM bootcamp.clase ORDER BY edad DESC;
+--     ordenar valores en valores ascendente por apellido: SELECT * FROM bootcamp.clase ORDER BY apellido ASC;
+--     Media de la edad de la clase diferenciando por sexo: SELECT sexo, AVG(edad) FROM bootcamp.clase GROUP BY sexo;
+--     Limitar el número de registros: SELECT * FROM bootcamp.clase LIMIT 2;
+
+-- Eliminar un registro:
+--     DROP TABLE bootcamp.clase;
+--     DROP VALUES
+
